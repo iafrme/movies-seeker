@@ -17,7 +17,8 @@ export class SearchForm extends Component {
     fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${inputMovie}`)
       .then(res => res.json())
       .then(results => {
-        const { Search, totalResults } = results;
+        // Default values when results not found
+        const { Search = [], totalResults = '0' } = results;
         console.log({ Search, totalResults });
 
         this.props.onResults(Search);
