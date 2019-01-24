@@ -5,6 +5,7 @@ import { SearchForm } from './Components/SearchForm';
 import './App.css';
 import 'bulma/css/bulma.css';
 import { MoviesList } from './Components/MoviesList';
+import { Detail } from './pages/Detail';
 
 class App extends Component {
   state = { usedSearch: false, results: [] };
@@ -22,6 +23,13 @@ class App extends Component {
   }
 
   render() {
+    const url = new URL(document.location);
+    const hasId = url.searchParams.has('id');
+
+    if (hasId) {
+      return <Detail id={url.searchParams.get('id')} />;
+    }
+
     return (
       <div className="App">
         <Title>Buscador de Películas...</Title>
@@ -31,7 +39,7 @@ class App extends Component {
         {this.state.usedSearch ? (
           this._renderResults()
         ) : (
-          <small> Busca una Pelicula... </small>
+          <small> Busca una Película... </small>
         )}
       </div>
     );
